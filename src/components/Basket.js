@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+import Modal from "./Modal/Modal.js";
 
 export default function Basket(props) {
   const { cartItems, onAdd, onRemove } = props;
@@ -6,7 +8,7 @@ export default function Basket(props) {
   const taxPrice = itemsPrice * 0.14;
   const shippingPrice = itemsPrice > 2000 ? 0 : 20;
   const totalPrice = itemsPrice + taxPrice + shippingPrice;
-  
+  const [modalOpen, setModalOpen] = useState(false);
   return (
 
     <aside className="product-checkout col-1">
@@ -59,13 +61,21 @@ export default function Basket(props) {
       </div>
       <hr />
       <div className="row">
-        <button onClick={() => alert('Implement Checkout!')}>
+      <button
+        className="openModalBtn"
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
           Checkout
         </button>
       </div>
     </>
   )}
-</div>
+      </div>
+      <div>
+      {modalOpen && <Modal setOpenModal={setModalOpen} />}
+      </div>
 </aside>
   );
 }
